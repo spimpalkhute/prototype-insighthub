@@ -33,7 +33,7 @@ st.dataframe(df)
 #Choose columns for plotting
 columns = st.multiselect("Select columns for plotting", df.columns)
 
-Check if columns are selected
+#Check if columns are selected
 if columns:
     #Plot using Plotly Express
     fig = px.line(df, x=df.index, y=columns, title="Unicorn Data Plot")
