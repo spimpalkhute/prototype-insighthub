@@ -25,7 +25,7 @@ option = st.selectbox(
 'You selected: ', option
 
 file_path = "Dataset_Unicorn.csv"  # Replace with your actual file path
-df = pd.read_csv(file_path)
+df = pd.read_csv(file_path, encoding='utf-8')
 
 # Display the DataFrame
 st.write("Indian Unicorns:")
