@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import datetime
 import plotly.express as px
+import openpyxl
 
 # Streamlit UI
 st.set_page_config(
