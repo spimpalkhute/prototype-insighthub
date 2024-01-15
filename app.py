@@ -12,8 +12,8 @@ st.divider()
 st.markdown(
         "<h3 style='text-align: center; color: black;'>InsightHub: Empowering Investment Decisions in India's Entrepreneurial Landscape </h1>",
         unsafe_allow_html=True)
-    st.markdown('')
-    st.markdown('**Overview**')
+st.markdown('')
+st.markdown('**Overview**')
 df = pd.DataFrame({
     'first column': ['', 'Start-up Founder', 'Venture Capitalist'],
     })
