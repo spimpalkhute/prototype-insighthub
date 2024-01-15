@@ -30,7 +30,7 @@ df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin-1')
 st.write("Indian Unicorns:")
 st.dataframe(df)
 
-Choose columns for plotting
+#Choose columns for plotting
 columns = st.multiselect("Select columns for plotting", df.columns)
 
 Check if columns are selected
