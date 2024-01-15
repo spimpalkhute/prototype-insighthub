@@ -8,7 +8,6 @@ st.set_page_config(
 st.title("Explore the world of Indian Startups")
 df = pd.DataFrame({
     'first column': ['Start-up Founder', 'Venture Capitalist'],
-    'second column': [10, 20, 30, 40]
     })
 
 option = st.selectbox(
