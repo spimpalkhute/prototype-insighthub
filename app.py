@@ -24,7 +24,6 @@ option = st.selectbox(
 
 'You selected: ', option
 
-# Load your Excel file
 file_path = "Dataset_Unicorn.csv"  # Replace with your actual file path
 df = pd.read_csv(file_path)
 
@@ -33,12 +32,12 @@ st.write("Indian Unicorns:")
 st.write(df)
 
 # Choose columns for plotting
-columns = st.multiselect("Select columns for plotting", df.columns)
+#columns = st.multiselect("Select columns for plotting", df.columns)
 
 # Check if columns are selected
-if columns:
+#if columns:
     # Plot using Plotly Express
-    fig = px.line(df, x=df.index, y=columns, title="Unicorn Data Plot")
-    st.plotly_chart(fig)
-else:
-    st.warning("Please select at least one column for plotting.")
+    #fig = px.line(df, x=df.index, y=columns, title="Unicorn Data Plot")
+    #st.plotly_chart(fig)
+#else:
+    #st.warning("Please select at least one column for plotting.")
