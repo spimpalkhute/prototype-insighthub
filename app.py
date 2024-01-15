@@ -30,13 +30,13 @@ df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin-1')
 st.write("Indian Unicorns:")
 st.dataframe(df)
 
-# Choose columns for plotting
-#columns = st.multiselect("Select columns for plotting", df.columns)
+Choose columns for plotting
+columns = st.multiselect("Select columns for plotting", df.columns)
 
-# Check if columns are selected
-#if columns:
-    # Plot using Plotly Express
-    #fig = px.line(df, x=df.index, y=columns, title="Unicorn Data Plot")
-    #st.plotly_chart(fig)
-#else:
-    #st.warning("Please select at least one column for plotting.")
+Check if columns are selected
+if columns:
+    #Plot using Plotly Express
+    fig = px.line(df, x=df.index, y=columns, title="Unicorn Data Plot")
+    st.plotly_chart(fig)
+else:
+    st.warning("Please select at least one column for plotting.")
