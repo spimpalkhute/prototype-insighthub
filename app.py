@@ -9,7 +9,7 @@ st.set_page_config(
 )
 st.title("Explore the world of Indian Startups")
 st.divider()
-    st.markdown(
+st.markdown(
         "<h3 style='text-align: center; color: black;'>InsightHub: Empowering Investment Decisions in India's Entrepreneurial Landscape </h1>",
         unsafe_allow_html=True)
     with open('./clock.time', 'r') as f:
