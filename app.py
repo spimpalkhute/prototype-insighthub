@@ -34,7 +34,7 @@ except UnicodeDecodeError:
 
 # Display the DataFrame
 st.write("Indian Unicorns:")
-st.write(df)
+st.dataframe(df)
 
 # Choose columns for plotting
 #columns = st.multiselect("Select columns for plotting", df.columns)
