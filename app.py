@@ -24,7 +24,7 @@ option = st.selectbox(
 
 'You selected: ', option
 
-df = pd.read_csv("Dataset_Unicorn.csv", encoding='utf-8')
+df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin-1')
 
 # Display the DataFrame
 st.write("Indian Unicorns:")
