@@ -26,17 +26,15 @@ option = st.selectbox(
 
 df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin-1')
 
-# Display the DataFrame
-st.write("Indian Unicorns:")
-st.dataframe(df)
+# Choose columns for printing the dataset
+selected_columns = st.multiselect("Select columns:", df.columns)
+if selected_columns:
+    st.dataframe(df[selected_columns])
 
-#Choose columns for plotting
-columns = st.multiselect("Select columns for plotting", df.columns)
-
-#Check if columns are selected
-if columns:
-    #Plot using Plotly Express
-    fig = px.line(df, x=df.index, y=columns, title="Unicorn Data Plot")
+# Check if columns are selected for plotting
+if selected_columns:
+    # Plot using Plotly Express
+    fig = px.line(df, x=df.index, y=selected_columns, title="CSV Data Plot")
     st.plotly_chart(fig)
 else:
-    st.warning("Please select at least one column for plotting.")
+    st.warning("Please select at least one column.")
