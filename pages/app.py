@@ -25,9 +25,6 @@ option = st.selectbox(
 'You selected: ', option
 with st.sidebar:
     st.title('🏂 InsightHub Dashboard')
-    
-    selected_year = st.selectbox('Select a year', year_list, index=len(year_list)-1)
-
     color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
     selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
 # Choose columns for printing the dataset
