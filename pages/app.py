@@ -20,6 +20,10 @@ df = pd.DataFrame({
     'first column': ['', 'Start-up Founder', 'Venture Capitalist'],
     })
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
+df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin-1')
+
+df['Operating Revenue (FY23)'] = pd.to_numeric(df['Operating Revenue (FY23)'].str.replace(',', ''), errors='coerce')
+df['Operating Revenue (FY22)'] = pd.to_numeric(df['Operating Revenue (FY22)'].str.replace(',', ''), errors='coerce')
 
 fig = go.Figure()
 fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
@@ -38,8 +42,6 @@ option = st.selectbox(
      df['first column'])
 
 'You selected: ', option
-
-df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin-1')
 
 # Choose columns for printing the dataset
 selected_columns = st.multiselect("Select columns:", df.columns)
