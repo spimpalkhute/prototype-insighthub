@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import datetime
 import plotly.express as px
+import plotly.graph_objects as go
+
 
 # Streamlit UI
 st.set_page_config(
@@ -17,7 +19,20 @@ st.markdown('**Overview**')
 df = pd.DataFrame({
     'first column': ['', 'Start-up Founder', 'Venture Capitalist'],
     })
+top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
 
+fig = go.Figure()
+fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
+                     name='Operating Revenue (FY23)'))
+fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
+                     name='Operating Revenue (FY22)'))
+
+fig.update_layout(barmode='group',
+                  title='Operating Revenue Comparison (FY23 vs FY22) for Top Companies',
+                  xaxis_title='Company',
+                  yaxis_title='Operating Revenue')
+
+fig.show()
 option = st.selectbox(
     'You are:',
      df['first column'])
