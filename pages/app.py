@@ -7,35 +7,45 @@ import plotly.graph_objects as go
 # Streamlit UI
 st.set_page_config(
     page_title="Prototype-Insighthub",
-    page_icon="👋",
+    page_icon=":chart_with_upwards_trend:"
+    layout="wide",
 )
 st.divider()
 st.markdown(
         "<h3 style='text-align: center; color: white;'>InsightHub: Empowering Investment Decisions in India's Entrepreneurial Landscape </h1>",
         unsafe_allow_html=True)
-st.markdown('')
-st.markdown('**Overview**')
-df = pd.DataFrame({
-    'first column': ['', 'Start-up Founder', 'Venture Capitalist'],
-    })
-option = st.selectbox(
-    'You are:',
-     df['first column'])
 
-'You selected: ', option
-with st.sidebar:
-    st.title('🏂 InsightHub Dashboard')
-    color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
-    selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
-# Choose columns for printing the dataset
-selected_columns = st.multiselect("Select columns:", df.columns)
-if selected_columns:
-    st.dataframe(df[selected_columns])
+df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin1')
+df['Operating Revenue (FY23)'] = pd.to_numeric(df['Operating Revenue (FY23)'].str.replace(',', ''), errors='coerce')
+df['Operating Revenue (FY22)'] = pd.to_numeric(df['Operating Revenue (FY22)'].str.replace(',', ''), errors='coerce')
 
-# Check if columns are selected for plotting
-if selected_columns:
-    # Plot using Plotly Express
-    fig = px.line(df, x=df.index, y=selected_columns, title="CSV Data Plot")
-    st.plotly_chart(fig)
-else:
-    st.warning("Please select at least one column.")
+df['Employee Benefit (FY23)'] = pd.to_numeric(df['Employee Benefit (FY23)'].str.replace(',', ''), errors='coerce')
+df['Employee Benefit (FY22)'] = pd.to_numeric(df['Employee Benefit (FY22)'].str.replace(',', ''), errors='coerce')
+
+df['Loss/ Profit (FY23)'] = pd.to_numeric(df['Loss/ Profit (FY23)'].str.replace(',', ''), errors='coerce')
+df['Loss/ Profit (FY22)'] = pd.to_numeric(df['Loss/ Profit (FY22)'].str.replace(',', ''), errors='coerce')
+
+df['Advertisement Spends (FY23)'] = pd.to_numeric(df['Advertisement Spends (FY23)'].str.replace(',', ''), errors='coerce')
+df['Advertisement Spend (FY22)'] = pd.to_numeric(df['Advertisement Spend (FY22)'].str.replace(',', ''), errors='coerce')
+
+#graphs time
+df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], var_name='Year', value_name='Loss/ Profit')
+
+fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
+fig.show()
+
+import plotly.graph_objects as go
+top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
+
+fig = go.Figure()
+fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
+                     name='Operating Revenue (FY23)'))
+fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
+                     name='Operating Revenue (FY22)'))
+
+fig.update_layout(barmode='group',
+                  title='Operating Revenue Comparison (FY23 vs FY22) for Top Companies',
+                  xaxis_title='Company',
+                  yaxis_title='Operating Revenue')
+
+fig.show()
