@@ -20,6 +20,7 @@ df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin1')
 #Filter data based on
 st.sidebar.header("Filter based on:")
 company_name = st.sidebar.multiselect("Company:", df["Company Name"].unique())
+subset_df = df[df['Company Name'] == company_name]
 
 col1, col2 = st.columns((2))
 
@@ -87,10 +88,9 @@ textbox_style = """
     </style>
 """
 with col1:
-    average_valuation = df1['Val_num'].mean()
     st.markdown(textbox_style, unsafe_allow_html=True)
-    st.markdown(f"<div class='textbox'><h1>₹{average_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
-    st.markdown(textbox_style, unsafe_allow_html=True)
+    mean_valuation = subset_df['val_num'].mean()
+    st.markdown(f"<div class='textbox'><h1>₹{mean_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
     fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
     st.plotly_chart(fig,use_container_width=True, height = 200)
 
