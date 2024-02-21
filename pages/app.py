@@ -34,7 +34,6 @@ df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], v
 fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
 fig.show()
 
-import plotly.graph_objects as go
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
 
 fig = go.Figure()
