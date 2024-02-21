@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 # Streamlit UI
 st.set_page_config(
     page_title="Prototype-Insighthub",
-    page_icon=":chart_with_upwards_trend:"
+    page_icon=":chart_with_upwards_trend:",
     layout="wide"
 )
 st.divider()
