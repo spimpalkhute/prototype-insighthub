@@ -64,7 +64,7 @@ df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.en
 
 #Filter data based on
 st.sidebar.header("Filter based on:")
-company_name = st.sidebar.multiselect("Company:", df1["Company"].unique())]
+company_name = st.sidebar.multiselect("Company:", df1["Company"].unique())
 
 #graphs time
 #graph 1
