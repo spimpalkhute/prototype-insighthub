@@ -45,7 +45,7 @@ with col1:
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
 top_companies1 = df.nlargest(10, 'Employee Benefit (FY23)')
 with col2:
-    choice = st.selectbox("Choose one:", ["Operating Revenue", "Employee Benefit", "Advertisement"])
+    choice = st.radio(["Operating Revenue", "Employee Benefit"])
     if choice =="Operating Revenue":
         fig1 = go.Figure()
         fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
