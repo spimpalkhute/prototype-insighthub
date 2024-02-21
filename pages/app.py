@@ -91,8 +91,11 @@ textbox_style = """
 """
 with col1:
     if selected_company:
-        subset_df = df1[df1['Company'] == company_name]
-        mean_valuation = subset_df['Val_num'].mean()
+        try:
+            subset_df = df1[df1['Company'] == company_name]
+            mean_valuation = subset_df['Val_num'].mean()
+        except KeyError:
+            st.error(f"No data found for {selected_company}.")
     else:
         mean_valuation = df1['Val_num'].mean()
     st.markdown(textbox_style, unsafe_allow_html=True)
