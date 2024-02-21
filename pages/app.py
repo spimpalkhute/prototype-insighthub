@@ -10,7 +10,7 @@ st.set_page_config(
     page_icon=":chart_with_upwards_trend:",
     layout="wide"
 )
-st.divider()
+
 st.markdown(
         "<h3 style='text-align: center; color: white;'>InsightHub: Empowering Investment Decisions in India's Entrepreneurial Landscape </h1>",
         unsafe_allow_html=True)
