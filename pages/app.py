@@ -69,7 +69,7 @@ with col2:
                   yaxis_title='Employee Benefit')
     st.plotly_chart(fig1,use_container_width=True, height = 200)
 
-df1 = pd.read_excel('unicons100.xlsx')
+df1 = pd.read_csv('unicorns100.csv')
 df_cols = [
     'Company',
     'Founded In',
