@@ -45,7 +45,7 @@ with col1:
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
 top_companies1 = df.nlargest(10, 'Employee Benefit (FY23)')
 with col2:
-    choice = st.radio(["Operating Revenue", "Employee Benefit"])
+    choice = st.radio("Top 10 in terms of:", ["Operating Revenue", "Employee Benefit"]
     if choice =="Operating Revenue":
         fig1 = go.Figure()
         fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
@@ -53,7 +53,7 @@ with col2:
         fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
                      name='Operating Revenue (FY22)'))
         fig1.update_layout(barmode='group',
-                  title='Operating Revenue Comparison (FY23 vs FY22) for Top Companies',
+                  title='Operating Revenue (FY23 vs FY22)',
                   xaxis_title='Company',
                   yaxis_title='Operating Revenue')
     elif choice =="Employee Benefit":
@@ -63,7 +63,7 @@ with col2:
         fig1.add_trace(go.Bar(x=top_companies1['Company Name'], y=top_companies1['Employee Benefit (FY22)'],
                      name='Employee Benefit (FY22)'))
         fig1.update_layout(barmode='group',
-                  title='Employee Benefit Comparison (FY23 vs FY22) for Top Companies',
+                  title='Employee Benefit (FY23 vs FY22)',
                   xaxis_title='Company',
                   yaxis_title='Employee Benefit')
     st.plotly_chart(fig1,use_container_width=True, height = 200)
