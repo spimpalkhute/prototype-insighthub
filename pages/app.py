@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.markdown(
+st.sidebar.markdown(
         "<h3 style='text-align: center; color: white;'>InsightHub: Empowering Investment Decisions in India's Entrepreneurial Landscape </h1>",
         unsafe_allow_html=True)
 
