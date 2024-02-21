@@ -35,40 +35,6 @@ df['Loss/ Profit (FY22)'] = pd.to_numeric(df['Loss/ Profit (FY22)'].str.replace(
 df['Advertisement Spends (FY23)'] = pd.to_numeric(df['Advertisement Spends (FY23)'].str.replace(',', ''), errors='coerce')
 df['Advertisement Spend (FY22)'] = pd.to_numeric(df['Advertisement Spend (FY22)'].str.replace(',', ''), errors='coerce')
 
-#graphs time
-#graph 1
-df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], var_name='Year', value_name='Loss/ Profit')
-
-with col1:
-    fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
-    st.plotly_chart(fig,use_container_width=True, height = 200)
-
-top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
-top_companies1 = df.nlargest(10, 'Employee Benefit (FY23)')
-with col2:
-    choice = st.radio("Top 10 in terms of:", ["Operating Revenue", "Employee Benefit"])
-    if choice == "Operating Revenue":
-        fig1 = go.Figure()
-        fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
-                     name='Operating Revenue (FY23)'))
-        fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
-                     name='Operating Revenue (FY22)'))
-        fig1.update_layout(barmode='group',
-                  title='Operating Revenue (FY23 vs FY22)',
-                  xaxis_title='Company',
-                  yaxis_title='Operating Revenue')
-    else:
-        fig1 = go.Figure()
-        fig1.add_trace(go.Bar(x=top_companies1['Company Name'], y=top_companies1['Employee Benefit (FY23)'],
-                     name='Employee Benefit (FY23)'))
-        fig1.add_trace(go.Bar(x=top_companies1['Company Name'], y=top_companies1['Employee Benefit (FY22)'],
-                     name='Employee Benefit (FY22)'))
-        fig1.update_layout(barmode='group',
-                  title='Employee Benefit (FY23 vs FY22)',
-                  xaxis_title='Company',
-                  yaxis_title='Employee Benefit')
-    st.plotly_chart(fig1,use_container_width=True, height = 200)
-
 df1 = pd.read_csv('unicorns100.csv')
 df_cols = [
     'Company',
@@ -97,6 +63,42 @@ df1['Funding_num'] = pd.to_numeric(df1['Funding_num'], errors='coerce')
 
 df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.endswith('Mn'), 'Funding_num'] *= 1000000
 df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.endswith('Bn'), 'Funding_num'] *= 100000000
+
+#graphs time
+#graph 1
+df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], var_name='Year', value_name='Loss/ Profit')
+
+with col1:
+    average_valuation = df1['Val_num'].mean()
+    st.markdown(f"## Average Valuation of Unicorns: ${average_valuation:,.2f}")
+    fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
+    st.plotly_chart(fig,use_container_width=True, height = 200)
+
+top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
+top_companies1 = df.nlargest(10, 'Employee Benefit (FY23)')
+with col2:
+    choice = st.radio("Top 10 in terms of:", ["Operating Revenue", "Employee Benefit"])
+    if choice == "Operating Revenue":
+        fig1 = go.Figure()
+        fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
+                     name='Operating Revenue (FY23)'))
+        fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
+                     name='Operating Revenue (FY22)'))
+        fig1.update_layout(barmode='group',
+                  title='Operating Revenue (FY23 vs FY22)',
+                  xaxis_title='Company',
+                  yaxis_title='Operating Revenue')
+    else:
+        fig1 = go.Figure()
+        fig1.add_trace(go.Bar(x=top_companies1['Company Name'], y=top_companies1['Employee Benefit (FY23)'],
+                     name='Employee Benefit (FY23)'))
+        fig1.add_trace(go.Bar(x=top_companies1['Company Name'], y=top_companies1['Employee Benefit (FY22)'],
+                     name='Employee Benefit (FY22)'))
+        fig1.update_layout(barmode='group',
+                  title='Employee Benefit (FY23 vs FY22)',
+                  xaxis_title='Company',
+                  yaxis_title='Employee Benefit')
+    st.plotly_chart(fig1,use_container_width=True, height = 200)
 
 
 with col1:
