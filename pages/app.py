@@ -98,7 +98,7 @@ with col1:
     st.markdown(textbox_style, unsafe_allow_html=True)
     st.markdown(f"<div class='textbox'><h1>₹{mean_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
     fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
-    st.plotly_chart(fig,use_container_width=True, height = 200)
+    st.plotly_chart(fig,use_container_width=True, height = 150)
 
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
 top_companies1 = df.nlargest(10, 'Employee Benefit (FY23)')
@@ -124,16 +124,16 @@ with col2:
                   title='Employee Benefit (FY23 vs FY22)',
                   xaxis_title='Company',
                   yaxis_title='Employee Benefit')
-    st.plotly_chart(fig1,use_container_width=True, height = 200)
+    st.plotly_chart(fig1,use_container_width=True, height = 150)
 
 
 with col1:
     pie_fig = px.pie(data_frame=df1, names='Sector', title='Sector Distribution')
-    st.plotly_chart(pie_fig,use_container_width=True, height = 200)
+    st.plotly_chart(pie_fig,use_container_width=True, height = 150)
 with col2:
     startup_counts = df1['Founded In'].value_counts().reset_index()
     startup_counts.columns = ['Founded In', 'Number of Startups']
     fig = px.bar(startup_counts, x='Founded In', y='Number of Startups',
              labels={'Founded In': 'Year Founded', 'Number of Startups': 'Number of Startups'},
              title='Number of Unicorns Founded Each Year')
-    st.plotly_chart(fig,use_container_width=True, height=100)
+    st.plotly_chart(fig,use_container_width=True, height=150)
