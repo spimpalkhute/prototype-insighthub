@@ -70,17 +70,18 @@ df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], v
 textbox_style = """
     <style>
         .textbox {
-            background-color: rgba(169, 169, 169, 0.3);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .textbox p {
-            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #ffffff;
         }
         .textbox h1 {
             font-size: 32px;
             font-weight: bold;
-            color: #333;
             margin: 0;
         }
     </style>
