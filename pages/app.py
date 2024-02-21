@@ -75,15 +75,19 @@ textbox_style = """
             border-radius: 5px;
         }
         .textbox p {
-            font-size: 20px;
+            font-size: 16px;
         }
         .textbox h1 {
-            font-size: 36px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
         }
     </style>
 """
 with col1:
     average_valuation = df1['Val_num'].mean()
+    st.markdown(textbox_style, unsafe_allow_html=True)
     st.markdown(f"<div class='textbox'><h1>₹{average_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
     fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
     st.plotly_chart(fig,use_container_width=True, height = 200)
