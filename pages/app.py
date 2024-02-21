@@ -67,10 +67,24 @@ df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.en
 #graphs time
 #graph 1
 df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], var_name='Year', value_name='Loss/ Profit')
-
+textbox_style = """
+    <style>
+        .textbox {
+            background-color: rgba(169, 169, 169, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .textbox p {
+            font-size: 20px;
+        }
+        .textbox h1 {
+            font-size: 36px;
+        }
+    </style>
+"""
 with col1:
     average_valuation = df1['Val_num'].mean()
-    st.markdown(f"## Average Valuation of Unicorns: ${average_valuation:,.2f}")
+    st.markdown(f"<div class='textbox'><h1>₹{average_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
     fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
     st.plotly_chart(fig,use_container_width=True, height = 200)
 
