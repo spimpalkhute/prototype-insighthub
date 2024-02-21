@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 st.set_page_config(
     page_title="Prototype-Insighthub",
     page_icon=":chart_with_upwards_trend:"
-    layout="wide",
+    layout="wide"
 )
 st.divider()
 st.markdown(
