@@ -6,4 +6,3 @@ geopandas
 leafmap
 datetime
 plotly
-go
