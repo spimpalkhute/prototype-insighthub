@@ -108,4 +108,4 @@ with col2:
     fig = px.bar(startup_counts, x='Founded In', y='Number of Startups',
              labels={'Founded In': 'Year Founded', 'Number of Startups': 'Number of Startups'},
              title='Number of Unicorns Founded Each Year')
-    st.plotly_chart(fig,use_container_width=True, height=200)
+    st.plotly_chart(fig,use_container_width=True, height=100)
