@@ -82,7 +82,7 @@ textbox_style = """
             color: #ffffff;
         }
         .textbox h1 {
-            font-size: 32px;
+            font-size: 25px;
             font-weight: bold;
             margin: 0;
         }
