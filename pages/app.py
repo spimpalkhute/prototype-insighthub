@@ -44,13 +44,13 @@ with col1:
 
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
 with col2:
-    fig = go.Figure()
-    fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
+    fig1 = go.Figure()
+    fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
                      name='Operating Revenue (FY23)'))
-    fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
+    fig1.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
                      name='Operating Revenue (FY22)'))
-    fig.update_layout(barmode='group',
+    fig1.update_layout(barmode='group',
                   title='Operating Revenue Comparison (FY23 vs FY22) for Top Companies',
                   xaxis_title='Company',
                   yaxis_title='Operating Revenue')
-    fig.show()
+    st.plotly_chart(fig1,use_container_width=True, height = 200)
