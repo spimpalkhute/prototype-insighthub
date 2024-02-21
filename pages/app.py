@@ -89,7 +89,7 @@ textbox_style = """
     </style>
 """
 with col1:
-    if selected_company:
+    if company_name:
         try:
             subset_df = df1[df1['Company'] == company_name]
             mean_valuation = subset_df['Val_num'].mean()
