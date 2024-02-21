@@ -6,4 +6,4 @@ geopandas
 leafmap
 datetime
 plotly
-plotly.graph_objects
+go
