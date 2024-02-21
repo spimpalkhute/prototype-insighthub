@@ -16,6 +16,12 @@ st.markdown(
         unsafe_allow_html=True)
 
 df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin1')
+#Filter data based on
+st.sidebar.header("Filter based on:")
+company_name = st.sidebar.multiselect("Company:", df["Company Name"].unique())
+
+col1, col2 = st.columns((2))
+
 df['Operating Revenue (FY23)'] = pd.to_numeric(df['Operating Revenue (FY23)'].str.replace(',', ''), errors='coerce')
 df['Operating Revenue (FY22)'] = pd.to_numeric(df['Operating Revenue (FY22)'].str.replace(',', ''), errors='coerce')
 
@@ -29,22 +35,22 @@ df['Advertisement Spends (FY23)'] = pd.to_numeric(df['Advertisement Spends (FY23
 df['Advertisement Spend (FY22)'] = pd.to_numeric(df['Advertisement Spend (FY22)'].str.replace(',', ''), errors='coerce')
 
 #graphs time
+#graph 1
 df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], var_name='Year', value_name='Loss/ Profit')
 
-fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
-fig.show()
+with col1:
+    fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
+    st.plotly_chart(fig,use_container_width=True, height = 200)
 
 top_companies = df.nlargest(10, 'Operating Revenue (FY23)')
-
-fig = go.Figure()
-fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
+with col2:
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY23)'],
                      name='Operating Revenue (FY23)'))
-fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
+    fig.add_trace(go.Bar(x=top_companies['Company Name'], y=top_companies['Operating Revenue (FY22)'],
                      name='Operating Revenue (FY22)'))
-
-fig.update_layout(barmode='group',
+    fig.update_layout(barmode='group',
                   title='Operating Revenue Comparison (FY23 vs FY22) for Top Companies',
                   xaxis_title='Company',
                   yaxis_title='Operating Revenue')
-
-fig.show()
+    fig.show()
