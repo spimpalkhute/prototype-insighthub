@@ -4,6 +4,7 @@ import datetime
 import plotly.express as px
 import plotly.graph_objects as go
 
+
 # Streamlit UI
 st.set_page_config(
     page_title="Prototype-Insighthub",
@@ -67,3 +68,44 @@ with col2:
                   xaxis_title='Company',
                   yaxis_title='Employee Benefit')
     st.plotly_chart(fig1,use_container_width=True, height = 200)
+
+df1 = pd.read_excel('unicons100.xlsx')
+df_cols = [
+    'Company',
+    'Founded In',
+    'Current Status',
+    'Sector',
+    'Headquarters',
+    'Total Funding',
+    'Valuation',
+    'Years to Unicorn'
+]
+df1 = df1[df_cols]
+
+df1['Years to Unicorn'] = pd.to_numeric(df1['Years to Unicorn'].str.replace('years', '').str.replace('Years', ''), errors='coerce')
+df1['Valuation'] = df1['Valuation'].str.replace('$', '').str.replace('+', '').str.replace('<', '').str.replace('Less than', '')
+df1['Val_num'] = df1['Valuation'].str.replace('Mn', '').str.replace('Bn', '')
+df1['Val_num'] = pd.to_numeric(df1['Val_num'], errors='coerce')
+
+df1.loc[df1['Valuation'].notnull() & df1['Valuation'].astype(str).str.endswith('Mn'), 'Val_num'] *= 1000000
+df1.loc[df1['Valuation'].notnull() & df1['Valuation'].astype(str).str.endswith('Bn'), 'Val_num'] *= 100000000
+
+df1['Total Funding'] = df1['Total Funding'].str.replace('$', '').str.replace('+', '').str.replace('<', '').str.replace('Less than', '')
+
+df1['Funding_num'] = df1['Total Funding'].str.replace('Mn', '').str.replace('Bn', '')
+df1['Funding_num'] = pd.to_numeric(df1['Funding_num'], errors='coerce')
+
+df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.endswith('Mn'), 'Funding_num'] *= 1000000
+df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.endswith('Bn'), 'Funding_num'] *= 100000000
+
+
+with col1:
+    pie_fig = px.pie(data_frame=df1, names='Sector', title='Sector Distribution')
+    st.plotly_chart(pie_fig,use_container_width=True, height = 200)
+with col2:
+    startup_counts = df1['Founded In'].value_counts().reset_index()
+    startup_counts.columns = ['Founded In', 'Number of Startups']
+    fig = px.bar(startup_counts, x='Founded In', y='Number of Startups',
+             labels={'Founded In': 'Year Founded', 'Number of Startups': 'Number of Startups'},
+             title='Number of Unicorns Founded Each Year')
+    st.plotly_chart(fig,use_container_width=True, height=200)
