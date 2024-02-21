@@ -17,9 +17,7 @@ st.markdown(
         unsafe_allow_html=True)
 
 df = pd.read_csv("Dataset_Unicorn.csv", encoding='latin1')
-#Filter data based on
-st.sidebar.header("Filter based on:")
-company_name = st.sidebar.multiselect("Company:", df["Company Name"].unique())
+
 
 col1, col2 = st.columns((2))
 
@@ -64,6 +62,11 @@ df1['Funding_num'] = pd.to_numeric(df1['Funding_num'], errors='coerce')
 df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.endswith('Mn'), 'Funding_num'] *= 1000000
 df1.loc[df1['Total Funding'].notnull() & df1['Total Funding'].astype(str).str.endswith('Bn'), 'Funding_num'] *= 100000000
 
+#Filter data based on
+st.sidebar.header("Filter based on:")
+company_name = st.sidebar.multiselect("Company:", df1["Company"].unique())
+subset_df = df1[df1['Company'] == company_name]
+
 #graphs time
 #graph 1
 df_melted = df.melt(value_vars=['Loss/ Profit (FY23)', 'Loss/ Profit (FY22)'], var_name='Year', value_name='Loss/ Profit')
@@ -87,8 +90,12 @@ textbox_style = """
     </style>
 """
 with col1:
+    if selected_company:
+        subset_df = df1[df1['Company'] == company_name]
+        mean_valuation = subset_df['Val_num'].mean()
+    else:
+        mean_valuation = df1['Val_num'].mean()
     st.markdown(textbox_style, unsafe_allow_html=True)
-    mean_valuation = df1['Val_num'].mean()
     st.markdown(f"<div class='textbox'><h1>₹{mean_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
     fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
     st.plotly_chart(fig,use_container_width=True, height = 200)
