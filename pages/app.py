@@ -88,7 +88,7 @@ textbox_style = """
 """
 with col1:
     st.markdown(textbox_style, unsafe_allow_html=True)
-    mean_valuation = df['Val_num'].mean()
+    mean_valuation = df1['Val_num'].mean()
     st.markdown(f"<div class='textbox'><h1>₹{mean_valuation:,.2f}</h1></div>", unsafe_allow_html=True)
     fig = px.box(df_melted, x='Year', y='Loss/ Profit', title="Loss/ Profit Comparison (FY23 vs FY22)")
     st.plotly_chart(fig,use_container_width=True, height = 200)
